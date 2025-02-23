@@ -98,7 +98,7 @@
       task: "Foi o que deu pra fazer"
     },
     {
-      id: 2,
+      id: 3,
       completed: false,
       task: "The book is on the table"
     },
