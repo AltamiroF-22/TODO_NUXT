@@ -23,14 +23,14 @@
               @delete="deleteTask"
               @edit="editTask"/>
           </div>
-          <TaskFooter :task="data" v-if="data.length !== 0"/>
+          <TaskFooter :task="data" v-if="data.length !== 0" @completed="filterByCompleted"/>
         </Container>
       </div>
     </div>
   </template>
   
   <script setup>
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
   
   const taskValue = ref('')
   const editingTaskId = ref(null) // Identificador da tarefa que está sendo editada
@@ -47,7 +47,7 @@
     if (editingTaskId.value !== null) {
       // Atualiza a tarefa existente
       const taskToEdit = data.value.find(t => t.id === editingTaskId.value)
-
+      
       taskToEdit.task = taskValue.value
       resetEditingID()
     } else {
@@ -58,13 +58,13 @@
         task: taskValue.value
       })
     }
-  
+    
     taskValue.value = '' // Limpa o campo após adicionar ou editar
   }
-
+  
   // Função para alternar o estado de 'completed' da tarefa
   const toggleTask = (taskId) => {
-
+    
     resetEditingID()
 
     const task = data.value.find(t => t.id === taskId)
@@ -105,5 +105,11 @@
       task: "The book is on the table"
     },
   ])
+
+  const filterByCompleted = () => {
+    data.value = data.value.filter(t => t.completed === true);
+    console.log(data.value)
+  }
+
   </script>
   
