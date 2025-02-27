@@ -23,7 +23,14 @@
             @delete="deleteTask"
             @edit="editTask"/>
         </div>
-        <TaskFooter :task="data" v-if="data.length !== 0" @completed="toggleFilter" @actives="setActives" @all="setAll"/>
+        <TaskFooter 
+            v-if="data.length !== 0"
+            :task="data"  
+            :filteringBy="filteringBy"
+            @completed="toggleFilter" 
+            @actives="setActives" 
+            @all="setAll"
+            @deleteCompleted="deleteCompleted"/>
       </Container>
     </div>
   </div>
@@ -43,9 +50,8 @@ const resetEditingID = () => {
 
 // Lista de tarefas
 const data = ref([
-  { id: 1, completed: false, task: 'Eai Beleza?' },
-  { id: 2, completed: true, task: "Foi o que deu pra fazer" },
-  { id: 3, completed: false, task: "The book is on the table" },
+  { id: 1, completed: false, task: 'Tarefeza para ser feita.' },
+  { id: 2, completed: true, task: "Tarefa feita." },
 ])
 
 // Computed para filtrar dinamicamente
@@ -111,5 +117,9 @@ const setActives = () => {
 }
 const setAll = () => {
   filteringBy.value = 'all'
+}
+
+const deleteCompleted = () => {
+  data.value = data.value.filter(t => !t.completed)
 }
 </script>

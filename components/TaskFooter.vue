@@ -1,36 +1,54 @@
 <template>
-    <div class="py-2 px-7 flex items-center justify-between w-full ">
-        <p class="text-zinc-400">{{ countItemsLeft }} ainda restantes</p>
-        <div class="flex gap-4">
-            <button @click="all" class="transition font-semibold hover:text-blue-500">Todos</button>
-            <button @click="actives" class="transition font-semibold hover:text-blue-500">Ativos</button>
-            <button @click="completed" class="transition font-semibold hover:text-blue-500">Completados</button>
-        </div>
-        <button class="transition hover:text-blue-500">Limpar completados</button>
-    </div>
+  <div class="py-2 px-7 flex items-center justify-between w-full text-zinc-500">
+      <p class="text-zinc-400">{{ countItemsLeft }} ainda restantes</p>
+      <div class="flex gap-4">
+          <button 
+              @click="emit('all')" 
+              :class="{'text-blue-500': filteringBy === 'all'}" 
+              class="transition font-semibold hover:text-zinc-900"
+          >
+              Todos
+          </button>
+          <button 
+              @click="emit('actives')" 
+              :class="{'text-blue-500': filteringBy === 'actives'}" 
+              class="transition font-semibold hover:text-zinc-900"
+          >
+              Ativos
+          </button>
+          <button 
+              @click="emit('completed')" 
+              :class="{'text-blue-500': filteringBy === 'completed'}" 
+              class="transition font-semibold hover:text-zinc-900"
+          >
+              Completados
+          </button>
+      </div>
+      <button 
+          @click="emit('deleteCompleted')" 
+          class="transition hover:text-zinc-900"
+      >
+          Limpar completados
+      </button>
+  </div>
 </template>
 
 <script setup>
-import { computed, defineEmits } from 'vue';
+import { computed, defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
-  task: Array
+task: Array,
+filteringBy: {
+  type: String,
+  default: 'all',
+  validator: value => ['all', 'actives', 'completed'].includes(value)
+}
 });
 
-const emit = defineEmits(['completed', 'actives','all']);
+const emit = defineEmits(['completed', 'actives', 'all', 'deleteCompleted']);
 
-const completed = () => {
-    emit('completed')
-}
-const actives = () => {
-    emit('actives')
-}
-const all = () => {
-    emit('all')
-}
-
-// Computed property para contar os itens ativos (não concluídos)
+// Computed para contar as tarefas ativas
 const countItemsLeft = computed(() => {
-  return (props.task || []).filter(t => !t.completed).length;
+return (props.task || []).filter(t => !t.completed).length;
 });
 </script>
