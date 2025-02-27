@@ -11,7 +11,8 @@
             <i class="material-icons text-xl text-white">add</i>
           </button>
         </Container>
-        <Container class="min-h-[150px] flex justify-center items-center">
+        <Container :class="data.length !== 0 ? 'justify-between' : 'justify-center'"
+          class="min-h-[150px] flex  items-center flex-col">
           <p v-if="data.length === 0" class="text-gray-400">Sem Tarefas no momento...</p>
           <div v-else class="flex flex-col w-full gap-3">
             <Task 
@@ -22,6 +23,7 @@
               @delete="deleteTask"
               @edit="editTask"/>
           </div>
+          <TaskFooter :task="data" v-if="data.length !== 0"/>
         </Container>
       </div>
     </div>
@@ -51,7 +53,7 @@
     } else {
       // Adiciona uma nova tarefa
       data.value.push({
-        id: data.value.length + 1,
+        id: Date.now(),
         completed: false,
         task: taskValue.value
       })

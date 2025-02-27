@@ -4,7 +4,7 @@
         <!-- Botão -->
         <button 
           @click="toggleTask"
-          class="rounded-full bg-white border flex items-center justify-center mx-4 w-[35px] h-[35px] hover:bg-gray-200 transition" 
+          class="rounded-full bg-white border flex items-center justify-center mx-4 w-[2rem] h-[2rem] hover:bg-gray-200 transition" 
           :class="{'bg-[linear-gradient(120deg,_hsl(192,100%,67%),_hsl(280,87%,65%))] hover:opacity-75' : task.completed}">
           <i v-if="task.completed" class="material-icons text-xl text-white">check</i>
         </button>
