@@ -50,7 +50,7 @@ const resetEditingID = () => {
 
 // Lista de tarefas
 const data = ref([
-  { id: 1, completed: false, task: 'Tarefeza para ser feita.' },
+  { id: 1, completed: false, task: 'Tarefa para ser feita.' },
   { id: 2, completed: true, task: "Tarefa feita." },
 ])
 

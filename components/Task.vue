@@ -11,7 +11,7 @@
   
         <!-- Texto da tarefa -->
         <div :class="{ 'line-through text-gray-500': task.completed }">
-          {{ task.task }}
+          <p>{{ task.task }}</p>
         </div>
       </div>
   
